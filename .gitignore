@@ -1,0 +1,16 @@
+build/
+out/
+cmake-build-*/
+
+vcpkg_installed/
+
+.vscode/.cache/
+
+*.exe
+*.pdb
+*.ilk
+*.obj
+*.lib
+*.dll
+*.exp
+*.log
