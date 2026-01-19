@@ -27,6 +27,7 @@ bool TileMap::LoadFromFile(const std::string& path) {
     hasSpawnA_ = false;
     hasSpawnB_ = false;
     ghostSpawns_.clear();
+    remainingPellets_ = 0;
 
     for (int y = 0; y < height_; ++y) {
         const std::string& src = lines[y];
@@ -47,6 +48,9 @@ bool TileMap::LoadFromFile(const std::string& path) {
             }
 
             tiles_[y][x] = c;
+            if (c == '.') {
+                ++remainingPellets_;
+            }
         }
     }
 
@@ -71,6 +75,9 @@ bool TileMap::ConsumePelletAt(int x, int y) {
 
     if (tiles_[y][x] == '.') {
         tiles_[y][x] = ' ';
+        if (remainingPellets_ > 0) {
+            --remainingPellets_;
+        }
         return true;
     }
 
@@ -79,4 +86,12 @@ bool TileMap::ConsumePelletAt(int x, int y) {
 
 void TileMap::ResetTiles() {
     tiles_ = originalTiles_;
+    remainingPellets_ = 0;
+    for (const std::string& row : tiles_) {
+        for (char c : row) {
+            if (c == '.') {
+                ++remainingPellets_;
+            }
+        }
+    }
 }

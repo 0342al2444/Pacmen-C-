@@ -76,7 +76,7 @@ void Game::Update(float deltaSeconds) {
         return;
     }
 
-    if (state_ == GameState::GameOver) {
+    if (state_ == GameState::GameOver || state_ == GameState::Win) {
         return;
     }
 
@@ -88,6 +88,11 @@ void Game::Update(float deltaSeconds) {
 
     HandlePelletPickup(playerA_);
     HandlePelletPickup(playerB_);
+
+    if (map_.GetRemainingPellets() == 0) {
+        state_ = GameState::Win;
+        return;
+    }
 
     ghostSystem_.Update(ghosts_, map_, playerA_, playerB_, deltaSeconds, tilePixelSize_);
 
@@ -109,8 +114,9 @@ void Game::Draw() const {
     const bool hovered = IsPointInRect(mouse, startRect);
     const bool showStart = (state_ == GameState::Menu);
     const bool showGameOver = (state_ == GameState::GameOver);
+    const bool showWin = (state_ == GameState::Win);
     renderer_.DrawUI(map_, playerA_, playerB_, uiPanelWidth_, uiPadding_, rowHeight_,
-                     showStart, startRect, hovered, showGameOver);
+                     showStart, startRect, hovered, showGameOver, showWin);
 }
 
 
@@ -269,7 +275,7 @@ Rectangle Game::GetStartButtonRect() const {
     const float padding = static_cast<float>(uiPadding_);
     const float buttonWidth = static_cast<float>(uiPanelWidth_) - padding * 2.0f;
     const float buttonHeight = static_cast<float>(rowHeight_ * 2);
-    const float scoreboardHeight = static_cast<float>(rowHeight_ * 5);
+    const float scoreboardHeight = static_cast<float>(rowHeight_ * 6);
     const float instructionHeight = static_cast<float>(rowHeight_ * 2);
     const float buttonX = panelLeft + padding;
     const float buttonY = padding + scoreboardHeight + instructionHeight + padding;

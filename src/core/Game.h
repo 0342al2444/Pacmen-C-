@@ -18,7 +18,8 @@ private:
     enum class GameState {
         Menu,
         Playing,
-        GameOver
+        GameOver,
+        Win
     };
 
     bool Initialize();

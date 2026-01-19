@@ -20,7 +20,8 @@ public:
                 bool showStartButton,
                 const Rectangle& startButton,
                 bool startHovered,
-                bool showGameOver) const;
+                bool showGameOver,
+                bool showWin) const;
     int GetTilePixelSize() const { return tilePixelSize_; }
 
 private:

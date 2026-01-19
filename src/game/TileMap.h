@@ -21,12 +21,14 @@ public:
     Vector2 GetPlayerSpawnA() const { return spawnA_; }
     Vector2 GetPlayerSpawnB() const { return spawnB_; }
     const std::vector<Vector2>& GetGhostSpawns() const { return ghostSpawns_; }
+    int GetRemainingPellets() const { return remainingPellets_; }
 
 private:
     int width_ = 0;
     int height_ = 0;
     std::vector<std::string> tiles_;
     std::vector<std::string> originalTiles_;
+    int remainingPellets_ = 0;
 
     Vector2 spawnA_{ 0.0f, 0.0f };
     Vector2 spawnB_{ 0.0f, 0.0f };

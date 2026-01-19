@@ -67,7 +67,8 @@ void Renderer::DrawUI(const TileMap& map,
                       bool showStartButton,
                       const Rectangle& startButton,
                       bool startHovered,
-                      bool showGameOver) const {
+                      bool showGameOver,
+                      bool showWin) const {
     const int mapPixelWidth = map.GetWidth() * tilePixelSize_;
     Rectangle panel{ static_cast<float>(mapPixelWidth), 0.0f,
                      static_cast<float>(uiPanelWidth),
@@ -96,6 +97,15 @@ void Renderer::DrawUI(const TileMap& map,
     textY += lineHeight;
     DrawText("Enter/Space: Start", textX, textY, 18, Color{ 180, 190, 210, 255 });
     textY += lineHeight;
+
+    if (showWin) {
+        DrawText("YOU WIN", textX, textY, 26, Color{ 120, 220, 150, 255 });
+        textY += lineHeight + 4;
+        DrawText("Press R for Menu", textX, textY, 18, Color{ 200, 200, 200, 255 });
+        textY += lineHeight;
+        DrawText("Press Esc to Quit", textX, textY, 18, Color{ 200, 200, 200, 255 });
+        textY += lineHeight;
+    }
 
     if (showGameOver) {
         DrawText("GAME OVER", textX, textY, 24, Color{ 255, 120, 90, 255 });
