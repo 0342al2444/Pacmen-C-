@@ -9,7 +9,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(pacmen
     src/main.cpp
+    src/core/Game.cpp
+    src/entities/Ghost.cpp
+    src/game/TileMap.cpp
+    src/render/Renderer.cpp
+    src/systems/GhostSystem.cpp
+    src/systems/Input.cpp
 )
+
+target_include_directories(pacmen PRIVATE src)
 
 find_package(raylib CONFIG REQUIRED)
 target_link_libraries(pacmen PRIVATE raylib)
